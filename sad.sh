@@ -10,7 +10,7 @@ read -p "Введите название исполняемого файла (co
 sleep 1
 read -p "Введите название токена: " TOKN
 sleep 1
-read -p "Введите время на цикл (сек.):\n " DELAY
+read -p "Введите время на цикл (сек.): " DELAY
 sleep 1
 
 if [ -z "$PASS" ]; then
