@@ -1,4 +1,5 @@
 #!/bin/bash
+#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/sad.sh > sad.sh && chmod  +x sad.sh && screen -S AD-1 './sad.sh'
 source $HOME/.bash_profile
 read -p "Введите название кошелька: " ADR_N
 sleep 0.5
