@@ -9,7 +9,7 @@ read -p "Введите chain-id: " CHAIN
 sleep 0.5
 read -p "Введите название исполняемого файла (cohod, evmosd, ect.): " PR_N
 sleep 0.5
-read -p "Введите название токена: " TOKN
+read -p "Введите название токена (без u): " TOKN
 sleep 0.5
 read -p "Введите информацию для MEMO: " MEMO
 sleep 0.5
@@ -30,7 +30,7 @@ echo -e "Получаем награду за делегацию:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${ADR_N} ${KB} --note ${MEMO} --commission --yes
 for (( timer=20; timer>0; timer-- ))
 do
-printf "Ждем %02d секунд\r" $timer
+printf "Ждем %02d\r" $timer
 sleep 1
 done
 BAL=$(${PR_N} q bank balances ${ADR_W} -o json | jq -r '.balances | .[].amount')
@@ -39,7 +39,7 @@ echo -e "Клеймим награды:\n"
 echo -e "${PASS}\n${PASS}\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${ADR_N} ${KB} --chain-id ${CHAIN} --note ${MEMO} --yes
 for (( timer=20; timer>0; timer-- ))
 do
-printf "Ждем %02d секунд\r" $timer
+printf "Ждем %02d\r" $timer
 sleep 1
 done
 BAL=$(${PR_N} q bank balances ${ADR_W} -o json | jq -r '.balances | .[].amount')
@@ -53,7 +53,7 @@ echo -e "Баланс: ${BAL} ${TOKN} BAL < 1 ${TOKN}\n"
 fi
 for (( timer=${DELAY}; timer>0; timer-- ))
 do
-printf "Ждем %02d секунд\r" $timer
+printf "Ждем %02d\r" $timer
 sleep 1
 done
 done
