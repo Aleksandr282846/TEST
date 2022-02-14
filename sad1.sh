@@ -1,9 +1,9 @@
 #!/bin/bash
-#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/sad.sh > sad.sh && chmod  +x sad.sh && screen -S AD-1 './sad.sh'
+#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/sad.sh > sad.sh && chmod  +x sad.sh && screen -S AD-1 './sad1.sh'
 source $HOME/.bash_profile
 read -p "Введите название кошелька: " ADR_N
 sleep 0.5
-read -p "Введите пароль от кошелька: " PASS
+read -p "Введите пароль от кошелька (если --keyring-backend test, оставте поле пустым): " PASS
 sleep 0.5
 read -p "Введите chain-id: " CHAIN
 sleep 0.5
