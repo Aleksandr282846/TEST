@@ -16,10 +16,10 @@ PJ=$(${PR_N} query staking validator ${ADD_V} --output json | jq .jailed)
 VP=$(curl -s localhost:26657/status | jq -r .result.validator_info.voting_power)
 echo -e "check, height block=${VB} | voting power=${VP}\n"
 if ([ $PJ = false ]); then
-curl -s -X POST --connect-timeout 10 "https://api.telegram.org/bot${TGAPI}/sendMessage?chat_id=${TGID}&text=${PR_N} | height block=${VB} | voting power=${VP} | jailed=${PJ}"
+curl -s -X POST --connect-timeout 10 "https://api.telegram.org/bot${TGAPI}/sendMessage?chat_id=${TGID}&text=✅ ${PR_N} | height block=${VB} | voting power=${VP} | jailed=${PJ}"
 echo -e "TB SEND 1\n"
 else
-curl -s -X POST --connect-timeout 10 "https://api.telegram.org/bot${TGAPI}/sendMessage?chat_id=${TGID1}&text=${PR_N} in jail"
+curl -s -X POST --connect-timeout 10 "https://api.telegram.org/bot${TGAPI}/sendMessage?chat_id=${TGID1}&text=❌ ${PR_N} in jail"
 echo -e "TB SEND 2\n"
 fi
 for (( timer=${DELAY}; timer>0; timer-- ))
