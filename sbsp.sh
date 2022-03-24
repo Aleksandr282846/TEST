@@ -46,6 +46,7 @@ sudo systemctl restart systemd-journald
 sudo systemctl daemon-reload
 sudo systemctl enable subspaced subspaced-farmer
 sudo systemctl restart subspaced
+sleep 60
 sudo systemctl restart subspaced-farmer
 
 echo -e "Ваш public-key"
