@@ -46,9 +46,15 @@ sudo systemctl restart systemd-journald
 sudo systemctl daemon-reload
 sudo systemctl enable subspaced subspaced-farmer
 sudo systemctl restart subspaced
-sleep 60
+for (( ;; )); do
+PS=$(sudo journalctl -u subspaced -n 1 | grep "finalized" | awk -F"best: #" '{print $NF}' | awk '{print $1}')
+sleep 10
+if (( PS < 1 )); then
+sleep 10
+else
 sudo systemctl restart subspaced-farmer
-
+done
+done
 echo -e "Ваш public-key"
 echo -e subspace-farmer identity view --public-key
 echo -e "Ваш mnemonic"
