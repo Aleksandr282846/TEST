@@ -53,7 +53,7 @@ if (( PS < 1 )); then
 sleep 10
 else
 sudo systemctl restart subspaced-farmer
-done
+fi
 done
 echo -e "Ваш public-key"
 echo -e subspace-farmer identity view --public-key
