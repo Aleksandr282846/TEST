@@ -1,4 +1,5 @@
 #!/bin/bash
+#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/sbsp.sh > sbsp.sh && chmod +x sbsp.sh && ./sbsp.sh
 read -p "Введите название ноды: " NM_N
 sleep 0.5
 read -p "Введите адрес на который будем фармить: " ADR_W
