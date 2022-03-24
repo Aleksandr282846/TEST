@@ -49,10 +49,6 @@ sudo systemctl enable subspaced subspaced-farmer
 sudo systemctl restart subspaced
 sleep 60
 sudo systemctl restart subspaced-farmer
-echo -e "Ваш public-key"
-echo -e subspace-farmer identity view --public-key
-echo -e "Ваш mnemonic"
-echo -e subspace-farmer identity view --mnemonic
 
 cd $HOME
 
