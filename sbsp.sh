@@ -4,7 +4,8 @@ read -p "Введите название ноды: " NM_N
 sleep 0.5
 read -p "Введите адрес на который будем фармить: " ADR_W
 sleep 0.5
-
+sudo apt update && sudo apt upgrade -y
+sudo apt install build-essential jq wget git htop curl -y
 cd $HOME
 rm -rf subspace*
 sleep 0.5
