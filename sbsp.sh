@@ -59,3 +59,13 @@ echo -e "Ваш public-key"
 echo -e subspace-farmer identity view --public-key
 echo -e "Ваш mnemonic"
 echo -e subspace-farmer identity view --mnemonic
+
+cd $HOME
+rm sbsp.sh
+
+#sudo systemctl stop subspaced && sudo systemctl stop subspaced-farmer
+#sudo systemctl disable subspaced subspaced-farmer
+#rm /usr/local/bin/subspace-node
+#rm /usr/local/bin/subspace-farmer
+#rm /etc/systemd/system/subspaced.service
+#rm /etc/systemd/system/subspaced-farmer.service
