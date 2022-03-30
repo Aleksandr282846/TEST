@@ -3,8 +3,6 @@ AD_N=1
 read -p "Введите адрес: " AD_A
 sleep 1
 
-source $HOME/.bash_profile
-
 # if any params recived
 if [ "$#" -gt 0 ]; then
 if [ "$1" != "-file" ]; then
