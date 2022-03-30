@@ -26,6 +26,6 @@ docker run --rm -it -v $HOME/.archway:/root/.archway archwaynetwork/archwayd:aug
 wget -O ~/.archway/config/addrbook.json "http://139.28.222.113/addrbook.json"
 echo -e "\n\033[32mРаспаковываем базу\n\033[0m"
 tar -C ~/.archway/data -xvf augusta-1_545284.tar
+rm -r ~/.archway/data/tx_index.db/*
 rm augusta-1_545284.tar
 docker container restart archway
-docker logs -n 100 archway
