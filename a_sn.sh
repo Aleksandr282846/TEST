@@ -24,7 +24,7 @@ docker container stop archway
 echo -e "\n\033[32mЧистим место"
 docker run --rm -it -v $HOME/.archway:/root/.archway archwaynetwork/archwayd:augusta unsafe-reset-all
 wget -O ~/.archway/config/addrbook.json "http://139.28.222.113/addrbook.json"
-echo -e "\n\033[32mРаспаковываем базу"
+echo -e "\n\033[32mРаспаковываем базу\n\033[0m"
 tar -C ~/.archway/data -xvf augusta-1_545284.tar
 rm augusta-1_545284.tar
 docker container restart archway
