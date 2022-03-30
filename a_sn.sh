@@ -6,7 +6,7 @@ wget http://139.28.222.113/augusta-1_545284.tar
 echo -e "Сохраняем priv_validator_key.json в папку $HOME/BK"
 cd $HOME
 mkdir backup_a && cp ~/.archway/config/priv_validator_key.json ~/backup_a
-echo -e "Меняем настройки прунинга"
+echo -e "Меняем настройки прунинга 100 1000 10"
 pruning="custom"
 pruning_keep_recent="100"
 pruning_keep_every="1000"
