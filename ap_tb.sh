@@ -1,5 +1,5 @@
 #!/bin/bash
-read -p "Введите ID бота: " TGID1
+read -p "Введите ID чата: " TGID1
 sleep 1
 read -p "Введите API бота: " TGAPI
 sleep 1
