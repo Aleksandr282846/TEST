@@ -26,7 +26,7 @@ MT=$(($MT / 1000))
 AC=$(curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_data_client_success_responses" | grep "TOTAL_COUNT" | awk '{print $2}')
 ASN=$(curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_state_sync_version" | grep "synced" | awk '{print $2}')
 echo -e "AC=${AC} ASN=${ASN} RS=${RS} IP=${IP} CP=${CP} FS=${FS} MU=${MU} MT=${MT}\n"
-curl -s -X POST --connect-timeout 10 "https://api.telegram.org/bot${TGAPI}/sendMessage?chat_id=${TGID1}&text=✅ aptos 1 | syn=${ASN} | co=${AC} | LO=${CP} | m=${MU}-${MT} | u=${FS}"
+curl -s -X POST --connect-timeout 10 "https://api.telegram.org/bot${TGAPI}/sendMessage?chat_id=${TGID1}&text=✅ aptos | syn=${ASN} | co=${AC} | LO=${CP} | m=${MU}-${MT} | u=${FS}"
 echo -e "\n"
 for (( timer=${DELAY}; timer>0; timer-- ))
 do
