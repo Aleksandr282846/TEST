@@ -1,5 +1,6 @@
 #!/bin/bash
 #curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/a_sn.sh > a_sn.sh && chmod  +x a_sn.sh && ./a_sn.sh
+#https://app.subsocial.network/5183/aptos-nastraivaem-prostuyu-telemetriyu-s-ispolzovaniem-32355
 cd $HOME
 echo -e "\n\033[32mСкачиваем снапшот\n\033[0m"
 wget http://139.28.222.113/augusta-1_545284.tar
