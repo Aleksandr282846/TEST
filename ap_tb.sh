@@ -1,4 +1,5 @@
 #!/bin/bash
+#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/ap_tb.sh > ap_tb.sh && chmod  +x ap_tb.sh && ./ap_tb.sh
 read -p "Введите ID чата: " TGID1
 sleep 1
 read -p "Введите API бота: " TGAPI
