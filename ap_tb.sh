@@ -11,7 +11,9 @@ if [[ -z $RS ]]; then
 RS=0
 fi
 if (( $RS > 0 )) ; then
-echo -e "RESTART APTOS\n"
+echo -e "RESTART APTOS"
+echo -e "\n"
+echo $(date -u) >> $HOME/log_er.txt
 systemctl restart aptosd
 sleep 60
 fi
