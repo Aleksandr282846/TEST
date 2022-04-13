@@ -58,3 +58,5 @@ cd $HOME
 #rm /usr/local/bin/subspace-farmer
 #rm /etc/systemd/system/subspaced.service
 #rm /etc/systemd/system/subspaced-farmer.service
+#rm -r ~/.local/share/subspace
+#rm -r ~/.local/share/subspace-node
