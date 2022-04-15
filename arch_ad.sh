@@ -21,7 +21,7 @@ ADR_V=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --bech val -a)
 NAM_W=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --output json | jq -r .name)
 SC=$(screen -ls | grep "SAD" | awk '{print $1}')
 echo -e "\033[32mТеперь можно всернуть сессию screen. Для этого зажмите \033[31m"Ctrl", затем нажните "D" и "A"\033[0m"
-echo -e "\033[32mЧтобы вернуться в активную сессию скпипта автоделегтрования, введите в командной строке \033[31mscreen -x $SC\033[0m"
+echo -e "\033[32mЧтобы вернуться в активную сессию скпипта автоделегирования, введите в командной строке \033[31mscreen -x $SC\033[0m"
 sleep 10
 for (( ;; )); do
 echo -e "Шаг 1 - клеймим награду за делегацию \033[32m(${ADR_V})\033[0m:\n"
