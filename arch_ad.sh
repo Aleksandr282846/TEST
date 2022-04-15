@@ -46,7 +46,7 @@ BAL=$(($BAL-99000))
 echo -e "\n"
 if ((BAL > 100000)); then
 echo -e "Делегируем всю сумму:\n"
-echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TOKN} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
 else
 echo -e "Баланс ${BAL} u${TK} меньше безопасного значения, собираем дальше.\n"
 fi
