@@ -1,7 +1,7 @@
 #!/bin/bash
 #sudo apt update && sudo apt upgrade -y
 #sudo apt install build-essential jq wget git htop curl screen -y
-#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/arch_ad.sh > arch_ad.sh && chmod +x arch_ad.sh && screen -S SAD arch_ad.sh './sad.sh'
+#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/arch_ad.sh > arch_ad.sh && chmod +x arch_ad.sh && screen -S SAD './arch_ad.sh'
 read -p "Введите wallet_adress (archway...): " ADR_W
 sleep 0.2
 read -p "Введите пароль от кошелька: " PASS
