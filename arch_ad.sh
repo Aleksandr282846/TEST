@@ -33,7 +33,7 @@ sleep 1
 done
 BAL=$(${PR_N} q bank balances ${ADR_W} -o json | jq -r '.balances | .[].amount')
 echo -e "\n"
-echo -e "Проверяем баланс. Баланс: ${BAL}u${TOKN}\n"
+echo -e "Проверяем баланс. Баланс: ${BAL}u${TK}\n"
 echo -e "Шаг 2 - клеймим награды:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
 for (( timer=15; timer>0; timer-- ))
