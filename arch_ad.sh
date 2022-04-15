@@ -11,7 +11,7 @@ sleep 0.2
 CHAIN=torii-1
 PR_N=archwayd
 TK=torii
-FS=45000
+FS=60000
 if [ -z "$PASS" ]; then
 KB="--keyring-backend test"
 else
