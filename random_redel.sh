@@ -19,6 +19,7 @@ NN=archwayd
 for (( ;; )); do
 RP=$(( $RANDOM % 100 + 1 ))
 RD=D$(( $RANDOM % 4 + 1 ))
+echo -e "WIN $RD - $RPtorii\n"
 FG=$(echo -e "${PASS}\ny\n" | ${NN} tx staking redelegate ${DR} ${RD} ${RP}000000utorii --from ${WA} --chain-id torii-1 --gas auto --fees ${FS}utorii --output json --yes | jq -r .code)
 sleep 1
 if (( FG > 0 )); then
