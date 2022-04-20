@@ -21,6 +21,7 @@ RP=$(( $RANDOM % 100 + 1 ))000000
 RD=D$(( $RANDOM % 4 + 1 ))
 RD=$(echo ${!RD})
 echo -e "WIN $RD - $RPtorii\n"
+echo -e "$(date) WIN ${RD} - ${RP}utorii\n" >> log.txt
 FG=$(echo -e "${PASS}\ny\n" | ${NN} tx staking redelegate ${DR} ${RD} ${RP}utorii --from ${WA} --chain-id torii-1 --gas auto --fees ${FS}utorii --output json --yes | jq -r .code)
 sleep 1
 if (( FG > 0 )); then
