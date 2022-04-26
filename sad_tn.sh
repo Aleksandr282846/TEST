@@ -1,4 +1,7 @@
 #!/bin/bash
+#curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/sad_tn.sh > sad_tn.sh && chmod +x sad_tn.sh && screen -S SAD './sad_tn.sh'
+#sudo apt update && sudo apt upgrade -y
+#sudo apt install build-essential jq wget git htop curl screen bc -y
 read -p "Введите wallet_adress: " ADR_W
 sleep 0.2
 read -p "Введите пароль от кошелька: " PASS
