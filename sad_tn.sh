@@ -11,6 +11,7 @@ CHAIN=torii-1 # имя сети
 TK=torii # имя токена
 FS=250000 # сумма fees операции
 DR=1000000 # сумма ревардов с которой запускаем цикл снятия и делегирования
+TM=20 # переменная времени сек.
 if [ -z "$PASS" ]; then
 KB="--keyring-backend test"
 else
@@ -33,14 +34,14 @@ echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + р�
 if ((${SN} > ${DR})); then
 echo -e "\033[32mШаг 1 - клеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas auto --fees ${FS}u${TK} --yes
-for (( timer=30; timer>0; timer-- ))
+for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
 sleep 1
 done
 echo -e "\033[32mШаг 2 - клеймим награды:\033[0m\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
-for (( timer=30; timer>0; timer-- ))
+for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
 sleep 1
@@ -52,7 +53,7 @@ BAL=$((${BAL} - 990000))
 if ((${BAL} > 1000000)); then
 echo -e "\033[32mШаг 3. Делегируем всю сумму:\033[0m\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
-for (( timer=30; timer>0; timer-- ))
+for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
 sleep 1
@@ -61,7 +62,7 @@ else
 echo -e "\033[31Баланс ${BAL}u${TK} меньше безопасного значения, собираем дальше.\033[0m\n"
 fi
 else
-for (( timer=30; timer>0; timer-- ))
+for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
 sleep 1
