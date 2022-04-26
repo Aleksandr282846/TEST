@@ -6,11 +6,11 @@ read -p "Введите wallet_adress: " ADR_W
 sleep 0.2
 read -p "Введите пароль от кошелька: " PASS
 sleep 0.2
-PR_N=archwayd #
-CHAIN=torii-1 #
-TK=torii #
-FS=250000 #
-DR=1000000 #
+PR_N=archwayd # имя сервиса
+CHAIN=torii-1 # имя сети
+TK=torii # имя токена
+FS=250000 # сумма fees операции
+DR=1000000 # сумма ревардов с которой запускаем цикл снятия и делегирования
 if [ -z "$PASS" ]; then
 KB="--keyring-backend test"
 else
