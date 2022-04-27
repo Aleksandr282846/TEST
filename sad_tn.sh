@@ -2,16 +2,24 @@
 #curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/sad_tn.sh > sad_tn.sh && chmod +x sad_tn.sh && screen -S SAD './sad_tn.sh'
 #sudo apt update && sudo apt upgrade -y
 #sudo apt install build-essential jq wget git htop curl screen bc -y
+echo -e "\033[32m"
 read -p "Введите wallet_adress: " ADR_W
 sleep 0.2
-read -p "Введите пароль от кошелька: " PASS
+read -p "Введите пароль от кошелька (при использовании флага keyring-backend test оставте поле пустым): " PASS
 sleep 0.2
-PR_N=archwayd # имя сервиса
-CHAIN=torii-1 # имя сети
-TK=torii # имя токена
-FS=250000 # сумма fees операции
-DR=1000000 # сумма ревардов с которой запускаем цикл снятия и делегирования
-TM=20 # переменная времени сек.
+read -p "Введите имя сервиса: " PR_N
+sleep 0.2
+read -p "Введите имя сети: " CHAIN
+sleep 0.2
+read -p "Введите имя токена: " TK
+sleep 0.2
+read -p "Введите значение fees: " FS
+sleep 0.2
+read -p "Введите сумма ревардов с которой запускаем цикл: " DR
+sleep 0.2
+read -p "Введите значение задержки между транзакциями сек.: " TM
+sleep 0.2
+echo -e "\033[0m"
 if [ -z "$PASS" ]; then
 KB="--keyring-backend test"
 else
