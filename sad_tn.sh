@@ -5,7 +5,7 @@
 echo -e "\033[32m"
 read -p "Введите wallet_adress: " ADR_W
 sleep 0.2
-read -p "Введите пароль от кошелька (при использовании флага keyring-backend test оставте поле пустым): " PASS
+read -p "Введите пароль от кошелька (при использовании флага keyring-backend test оставьте поле пустым): " PASS
 sleep 0.2
 read -p "Введите имя сервиса: " PR_N
 sleep 0.2
