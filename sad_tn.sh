@@ -15,6 +15,8 @@ read -p "Введите имя токена: " TK
 sleep 0.2
 read -p "Введите значение fees: " FS
 sleep 0.2
+read -p "Введите значение gas (пустое поле - auto): " GS
+sleep 0.2
 read -p "Введите сумму ревардов с которой запускаем цикл: " DR
 sleep 0.2
 read -p "Введите значение задержки между транзакциями сек.: " TM
@@ -25,6 +27,12 @@ KB="--keyring-backend test"
 else
 KB=""
 fi
+if [ -z "${GS}" ]; then
+KP="auto"
+else
+KP=${GS}
+fi
+echo -e "\033[0m"
 ADR_V=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --bech val -a)
 NAM_W=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --output json | jq -r .name)
 SC=$(screen -ls | grep "SAD" | awk '{print $1}')
@@ -34,7 +42,7 @@ sleep 1
 for (( ;; )); do
 CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
 sleep 0.2
-CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
+CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${KB} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 sleep 0.2
 CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 DS=$(bc <<< "${CK} + ${CR}")
@@ -43,7 +51,7 @@ DP=$(bc <<< "${CK} + ${CR} - ${CV}")
 echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница = ${DP}u${TK}\033[0m"
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
-echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas auto --fees ${FS}u${TK} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} --fees ${FS}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
@@ -51,7 +59,7 @@ sleep 1
 done
 if ((${DP} > 10)); then
 echo -e "\033[32mКлеймим все награды:\033[0m\n"
-echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${FS}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
@@ -64,7 +72,7 @@ sleep 1
 BAL=$(echo "${BAL} - 990000" | bc)
 if ((${BAL} > 1000000)); then
 echo -e "\033[32mШаг 3. Делегируем всю сумму:\033[0m\n"
-echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${FS}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
