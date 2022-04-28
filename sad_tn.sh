@@ -59,7 +59,8 @@ sleep 1
 done
 if ((${DP} > 10)); then
 echo -e "\033[32mКлеймим все награды:\033[0m\n"
-echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${FS}u${TK} --yes
+KQ=$(bc <<< "(${FS} * 6")
+echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${KQ}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
