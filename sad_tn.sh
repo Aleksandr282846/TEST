@@ -1,7 +1,7 @@
 #!/bin/bash
 #curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/sad_tn.sh > sad_tn.sh && chmod +x sad_tn.sh && screen -S SAD './sad_tn.sh'
 #sudo apt update && sudo apt upgrade -y
-#sudo apt install build-essential jq wget git htop curl screen bc -y
+#sudo apt install jq screen bc -y
 echo -e "\033[32m"
 read -p "Введите wallet_adress: " ADR_W
 sleep 0.2
@@ -48,7 +48,7 @@ CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} 
 DS=$(bc <<< "${CK} + ${CR}")
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
 DP=$(bc <<< "${CV} - ${CK} + ${CR}")
-echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница = ${DP}u${TK}\033[0m"
+echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}.\033[0m"
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} --fees ${FS}u${TK} --yes
