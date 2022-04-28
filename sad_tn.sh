@@ -61,7 +61,7 @@ else
 BAL=$(${PR_N} q bank balances ${ADR_W} -o json | jq -r '.balances | .[].amount')
 echo -e "\033[32mПроверяем баланс. Баланс: ${BAL}u${TK}\033[0m\n"
 sleep 1
-BAL=$(bc <<< "(${BAL} - 990000")
+BAL=$(echo "${BAL} - 990000" | bc)
 if ((${BAL} > 1000000)); then
 echo -e "\033[32mШаг 3. Делегируем всю сумму:\033[0m\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
