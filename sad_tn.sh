@@ -36,7 +36,7 @@ CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .c
 CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
-DP=$(bc <<< "(${CK} + ${CR}) - ${DD}")
+DP=$(bc <<< "(${CK} + ${CR}) - ${CV}")
 echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница = ${DP}u${TK}\033[0m"
 if ((${DD} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
