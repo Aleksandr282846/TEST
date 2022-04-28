@@ -37,10 +37,11 @@ sleep 0.2
 CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 sleep 0.2
 CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
+DS=$(bc <<< "${CK} + ${CR}")
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
 DP=$(bc <<< "${CK} + ${CR} - ${CV}")
 echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница = ${DP}u${TK}\033[0m"
-if ((${DD} > ${DR})); then
+if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas auto --fees ${FS}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
