@@ -38,7 +38,7 @@ CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} 
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
 DP=$(bc <<< "(${CK} + ${CR}) - ${DD}")
 echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница = ${DP}u${TK}\033[0m"
-if ((${SN} > ${DR})); then
+if ((${DD} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas auto --fees ${FS}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
@@ -46,7 +46,6 @@ do
 printf "Пауза %02d \r" $timer
 sleep 1
 done
-DP=$(echo "($DC + $DR - $DV" | bc)
 if ((${DP} > 10)); then
 echo -e "\033[32mКлеймим все награды:\033[0m\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
@@ -59,7 +58,7 @@ else
 BAL=$(${PR_N} q bank balances ${ADR_W} -o json | jq -r '.balances | .[].amount')
 echo -e "\033[32mПроверяем баланс. Баланс: ${BAL}u${TK}\033[0m\n"
 sleep 1
-BAL=$(echo "${BAL} - 990000" | bc)
+BAL=$(bc <<< "(${BAL} - 990000")
 if ((${BAL} > 1000000)); then
 echo -e "\033[32mШаг 3. Делегируем всю сумму:\033[0m\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas auto --fees ${FS}u${TK} --yes
