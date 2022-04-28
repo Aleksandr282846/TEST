@@ -72,7 +72,7 @@ echo -e "\033[32mПроверяем баланс. Баланс: ${BAL}u${TK}\033
 sleep 1
 BAL=$(echo "${BAL} - 990000" | bc)
 if ((${BAL} > 1000000)); then
-echo -e "\033[32mШаг 3. Делегируем всю сумму:\033[0m\n"
+echo -e "\033[32mДелегируем всю сумму:\033[0m\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${FS}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
