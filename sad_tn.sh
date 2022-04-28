@@ -66,7 +66,7 @@ do
 printf "Пауза %02d \r" $timer
 sleep 1
 done
-else
+fi
 BAL=$(${PR_N} q bank balances ${ADR_W} -o json | jq -r '.balances | .[].amount')
 echo -e "\033[32mПроверяем баланс. Баланс: ${BAL}u${TK}\033[0m\n"
 sleep 1
@@ -81,7 +81,6 @@ sleep 1
 done
 else
 echo -e "\033[31Баланс ${BAL}u${TK} меньше безопасного значения, собираем дальше.\033[0m\n"
-fi
 fi
 else
 for (( timer=${TM}; timer>0; timer-- ))
