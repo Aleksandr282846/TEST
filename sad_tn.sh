@@ -22,7 +22,7 @@ sleep 0.2
 read -p "Введите значение задержки между транзакциями сек.: " TM
 sleep 0.2
 echo -e "\033[0m"
-if [ -z "$PASS" ]; then
+if [ -z "${PASS}" ]; then
 KB="--keyring-backend test"
 else
 KB=""
