@@ -33,14 +33,12 @@ echo -e "\033[32mЧтобы вернуться в активную сессию 
 sleep 1
 for (( ;; )); do
 CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
-sleep 0.1
+sleep 0.2
 CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
-sleep 0.1
+sleep 0.2
 CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
-echo -e "${CK} ${CR} ${CV}"
-sleep 10
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
-DP=$(bc <<< "(${CK} + ${CR}) - ${CV}")
+DP=$(bc <<< "${CK} + ${CR} - ${CV}")
 echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница = ${DP}u${TK}\033[0m"
 if ((${DD} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
