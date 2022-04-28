@@ -33,21 +33,20 @@ else
 KP=${GS}
 fi
 echo -e "\033[0m"
+VB=$(curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height)
 ADR_V=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --bech val -a)
 NAM_W=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --output json | jq -r .name)
+HS=1
 SC=$(screen -ls | grep "SAD" | awk '{print $1}')
 echo -e "\033[32mТеперь можно свернуть сессию screen. Для этого зажмите \033[31m"Ctrl", затем нажните "D" и "A"\033[0m"
 echo -e "\033[32mЧтобы вернуться в активную сессию скрипта автоделегирования, введите в командной строке \033[31mscreen -x $SC\033[0m"
 for (( ;; )); do
-CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
-sleep 0.2
 CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
 sleep 0.2
 CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${KB} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 DS=$(bc <<< "${CK} + ${CR}")
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
-DP=$(bc <<< "${CV} - ${CK} - ${CR}")
-echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница ${DP}u${TK}\033[0m"
+echo -e "\033[32mПроверка суммы на блоке ${VB}. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}.\033[0m"
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} --fees ${FS}u${TK} --yes
@@ -56,10 +55,11 @@ do
 printf "Пауза %02d \r" $timer
 sleep 1
 done
-if ((${DP} > 10)); then
+if ((${HS} > 10)); then
 echo -e "\033[32mКлеймим все награды:\033[0m\n"
-KQ=$(bc <<< "${FS} * 6")
+KQ=$(bc <<< "${FS} * 5")
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${KQ}u${TK} --yes
+HS=1
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
@@ -86,6 +86,7 @@ for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
 sleep 1
+HS=$(echo "${HS} + 1" | bc)
 done
 fi
 done
