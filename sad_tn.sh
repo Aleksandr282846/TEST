@@ -40,7 +40,6 @@ SC=$(screen -ls | grep "SAD" | awk '{print $1}')
 echo -e "\033[32mТеперь можно свернуть сессию screen. Для этого зажмите \033[31m"Ctrl", затем нажните "D" и "A"\033[0m"
 echo -e "\033[32mЧтобы вернуться в активную сессию скрипта автоделегирования, введите в командной строке \033[31mscreen -x $SC\033[0m"
 for (( ;; )); do
-HS=$(echo "${HS} + 1" | bc)
 VB=$(curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height)
 CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
 sleep 0.2
@@ -50,6 +49,7 @@ DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
 echo -e "\033[32mПроверка суммы на блоке ${VB}-${HS}. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}.\033[0m"
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
+HS=$(echo "${HS} + 1" | bc)
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} --fees ${FS}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
