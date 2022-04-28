@@ -47,8 +47,8 @@ sleep 1
 CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 DS=$(bc <<< "${CK} + ${CR}")
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
-DP=$(bc <<< "${CV} - ${CK} + ${CR}")
-echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}.\033[0m"
+DP=$(bc <<< "${CV} - ${CK} - ${CR}")
+echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница ${DP}u${TK}\033[0m"
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} --fees ${FS}u${TK} --yes
@@ -59,7 +59,7 @@ sleep 1
 done
 if ((${DP} > 10)); then
 echo -e "\033[32mКлеймим все награды:\033[0m\n"
-KQ=$(bc <<< "(${FS} * 6")
+KQ=$(bc <<< "${FS} * 6")
 echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${KQ}u${TK} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
