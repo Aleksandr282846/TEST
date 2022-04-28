@@ -47,7 +47,7 @@ sleep 1
 CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 DS=$(bc <<< "${CK} + ${CR}")
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
-DP=$(bc <<< "${CK} + ${CR} - ${CV}")
+DP=$(bc <<< "${CV} - ${CK} + ${CR}")
 echo -e "\033[32mПроверка суммы. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}. Разница = ${DP}u${TK}\033[0m"
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
