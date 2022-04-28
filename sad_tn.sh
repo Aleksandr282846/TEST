@@ -35,11 +35,12 @@ fi
 echo -e "\033[0m"
 ADR_V=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --bech val -a)
 NAM_W=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --output json | jq -r .name)
-HS=1
+HS=0
 SC=$(screen -ls | grep "SAD" | awk '{print $1}')
 echo -e "\033[32mТеперь можно свернуть сессию screen. Для этого зажмите \033[31m"Ctrl", затем нажните "D" и "A"\033[0m"
 echo -e "\033[32mЧтобы вернуться в активную сессию скрипта автоделегирования, введите в командной строке \033[31mscreen -x $SC\033[0m"
 for (( ;; )); do
+HS=$(echo "${HS} + 1" | bc)
 VB=$(curl -s localhost:26657/status | jq -r .result.sync_info.latest_block_height)
 CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
 sleep 0.2
@@ -86,7 +87,6 @@ for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
 sleep 1
-HS=$(echo "${HS} + 1" | bc)
 done
 fi
 done
