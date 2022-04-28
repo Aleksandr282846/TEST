@@ -39,12 +39,11 @@ SC=$(screen -ls | grep "SAD" | awk '{print $1}')
 echo -e "\033[32mТеперь можно свернуть сессию screen. Для этого зажмите \033[31m"Ctrl", затем нажните "D" и "A"\033[0m"
 echo -e "\033[32mЧтобы вернуться в активную сессию скрипта автоделегирования, введите в командной строке \033[31mscreen -x $SC\033[0m"
 for (( ;; )); do
-sleep 1
-CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
-sleep 1
-CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${KB} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
-sleep 1
 CV=$(echo "($(${PR_N} query distribution validator-outstanding-rewards ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
+sleep 0.2
+CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
+sleep 0.2
+CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${KB} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 DS=$(bc <<< "${CK} + ${CR}")
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
 DP=$(bc <<< "${CV} - ${CK} - ${CR}")
