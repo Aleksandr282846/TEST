@@ -11,8 +11,8 @@ sudo apt install build-essential jq wget git htop curl -y
 cd $HOME
 rm -rf subspace*
 sleep 0.5
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/snapshot-2022-may-19/subspace-node-ubuntu-x86_64-snapshot-2022-may-19
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/snapshot-2022-may-19/subspace-farmer-ubuntu-x86_64-snapshot-2022-may-19
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-1a-2022-may-31/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-1a-2022-may-31/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
 chmod +x subspace*
 mv subspace* /usr/local/bin/
 
