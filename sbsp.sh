@@ -11,8 +11,8 @@ sudo apt install build-essential jq wget git htop curl -y
 cd $HOME
 rm -rf subspace*
 sleep 0.5
-wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-1a-2022-may-31/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
-wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-1a-2022-may-31/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
+wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-1b-2022-june-02/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02
+wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-1b-2022-june-02/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02
 chmod +x subspace*
 mv subspace* /usr/local/bin/
 
@@ -49,7 +49,8 @@ sudo systemctl restart systemd-journald
 sudo systemctl daemon-reload
 sudo systemctl enable subspaced subspaced-farmer
 sudo systemctl restart subspaced
-
+sleep 15
+sudo systemctl restart subspaced-farmer
 
 cd $HOME
 
