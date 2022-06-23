@@ -13,7 +13,7 @@ read -p "Введите имя сети: " CHAIN
 sleep 0.2
 read -p "Введите имя токена: " TK
 sleep 0.2
-read -p "Введите значение fees: " FS
+read -p "Введите значение fees (при 0 оставьте поле пустым): " FS
 sleep 0.2
 read -p "Введите значение gas (пустое поле - auto): " GS
 sleep 0.2
@@ -31,6 +31,11 @@ if [ -z "${GS}" ]; then
 KP="auto"
 else
 KP=${GS}
+fi
+if [ -z "${FS}" ]; then
+FD=""
+else
+FD=--fees ${FS}u${TK}
 fi
 echo -e "\033[0m"
 ADR_V=$(echo -e "${PASS}\ny\n" | ${PR_N} keys show ${ADR_W} ${KB} --bech val -a)
@@ -50,7 +55,7 @@ echo -e "\033[32mПроверка суммы на блоке ${VB}-${HS}. Ком
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 HS=$(echo "${HS} + 1" | bc)
-echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} --fees ${FS}u${TK} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} ${FD} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
@@ -59,7 +64,7 @@ done
 if ((${HS} > 10)); then
 echo -e "\033[32mКлеймим все награды:\033[0m\n"
 KQ=$(bc <<< "${FS} * 5")
-echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${KQ}u${TK} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} ${FD} --yes
 HS=1
 for (( timer=${TM}; timer>0; timer-- ))
 do
@@ -73,7 +78,7 @@ sleep 1
 BAL=$(echo "${BAL} - 990000" | bc)
 if ((${BAL} > 1000000)); then
 echo -e "\033[32mДелегируем всю сумму:\033[0m\n"
-echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} --fees ${FS}u${TK} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} ${FD} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
