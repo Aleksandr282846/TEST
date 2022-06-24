@@ -1,32 +1,32 @@
 #!/bin/bash
 #curl -s https://raw.githubusercontent.com/defrisk0/TEST/main/random_redel.sh > random_redel.sh && chmod +x random_redel.sh && screen -S BSRD './random_redel.sh'
-D1=archwayvaloper1u8rks82gfsmc3527rnjll6q73cvm70df6w28pp
-D2=archwayvaloper15h3kntd2x4p0agpdmk5vru80hukx7rd6y0hpnr
-D3=archwayvaloper1c9zyd90kc0qpel29p27zq7m9y59t06f5rr7d33
-D4=archwayvaloper18nkyh6h42hut7yzr3jet7nehp5zn8qy9c7umrh
-D5=archwayvaloper1uupksdst0mjtxfy5tj2zlytud3y2rfqfwrcx4c
-D6=archwayvaloper1ve8dr8g7tz99kgew4j80ld9zwfrmcwm5ajc80w
-D7=archwayvaloper1wyhss8a9q00mp3z7mdq69c37c4x8hz4w6ysah6
-D8=archwayvaloper1le23uxapyqh00rh30et5ek2kxvfp5j8aaktt6y
-D9=archwayvaloper18dsjy9ht78vjuxl9n6jealq7rk28tl42ke7sqc
-D10=archwayvaloper1uu7kp4xx7kmhsfupk3wys9dp9z6vmkg0uw74w4
-DR=archwayvaloper1w54qanhedhyngdn375nudyt00lmnrl20en88pl
-FS=100000
+D1=quickvaloper1yxydwcrqwtuehm0k3anfjhf2pffyl8x4jwhuqu
+D2=quickvaloper1lwaw46t3mn6njes5krra2lqpwaks5hfjzr8v2s
+D3=quickvaloper1nj4wfrah2yshhr4tyvqc2c7crxx4sl9qrqyej9
+D4=quickvaloper1egtrpshx6vg3v7pkksvd8xmgv53sskl5ehfucq
+D5=quickvaloper1h7m4exrg3gux672pp7wyg78cs2ftateegn8mut
+D6=quickvaloper1nze0w7jt74m0xmu3evzyunrtss9zeqrwjc8t0g
+D7=quickvaloper17vsqv50glpv5nahc8cdqkmqqgzjjcpmjr90lxl
+D8=quickvaloper1plux0hlt5kpxwr7e9kgg8zlk0e4cetcxj22c2s
+D9=quickvaloper1s42upp5fjvxy9gnsax9zsvqjxzrcuxns6za6ec
+D10=quickvaloper1r46j5qhnme5klumyf6g3hy6d8gc9hukn4drjfq
+DR=quickvaloper1zcm6a3thfsv54glc3e2l27fnp7n7fnuzxy7q7u
+#FS=--fees 100000utorii
 PASS=
-DELAY=1200
+DELAY=600
 WA=SRG0Z10
-NN=archwayd
+NN=quicksilverd
 for (( ;; )); do
-RP=$(( $RANDOM % 50 + 1 ))000000
+RP=$(( $RANDOM % 50 + 1 ))0000
 RD=D$(( $RANDOM % 10 + 1 ))
 RD=$(echo ${!RD})
-echo -e "WIN ${RD} - ${RP}utorii\n"
-echo -e "$(date) WIN ${RD} - ${RP}utorii\n" >> log.txt
-FG=$(echo -e "${PASS}\ny\n" | ${NN} tx staking redelegate ${DR} ${RD} ${RP}utorii --from ${WA} --chain-id torii-1 --gas auto --fees ${FS}utorii --output json --yes | jq -r .code)
+echo -e "WIN ${RD} - ${RP}uqck\n"
+echo -e "$(date) WIN ${RD} - ${RP}uqck\n" >> log.txt
+FG=$(echo -e "${PASS}\ny\n" | ${NN} tx staking redelegate ${DR} ${RD} ${RP}uqck --from ${WA} --chain-id killerqueen-1 --gas auto ${FS} --output json --yes | jq -r .code)
 sleep 1
 if (( FG > 0 )); then
 sleep 10
-echo -e "${PASS}\ny\n" | ${NN} tx staking redelegate ${DR} ${RD} ${RP}utorii --from ${WA} --chain-id torii-1 --gas 300000 --fees ${FS}utorii --yes
+echo -e "${PASS}\ny\n" | ${NN} tx staking redelegate ${DR} ${RD} ${RP}uqck --from ${WA} --chain-id killerqueen-1 --gas auto ${FS} --yes
 fi
 for (( timer=${DELAY}; timer>0; timer-- ))
 do
