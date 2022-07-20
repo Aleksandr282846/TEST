@@ -1,0 +1,20 @@
+#!/bin/bash
+NS=seid
+NC=atlantic-1
+GP=200000
+NW=SRG0Z10
+PS=
+ND=usei
+DL=10
+for (( ;; )); do
+  RP=$(( $RANDOM % 30 + 1 ))
+  LV=$(${NS} query staking validators --limit 500 -o json | jq -r '.validators[] | select(.status=="BOND_STATUS_BONDED") | [.operator_address] | @csv' | jq -r | sed -n ${RP}p)
+  sleep 1
+  echo -e "VALID: ${LV}\n"
+  sleep 1
+  echo -e "${PS}\n" | ${NS} tx staking delegate ${LV} ${RP}${ND} --chain-id ${NC} --gas ${GP} --from ${NW} --yes
+    for (( timer=${DL}; timer>0; timer-- ))
+    do
+    printf "* %02d sec\r" $timer
+    done
+done
