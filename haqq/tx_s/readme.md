@@ -1,5 +1,8 @@
+```
 cd $HOME
+```
 mkdir temp_tx && cd temp_tx
+```
 mkdir tx
 mkdir utx
 nano gen_sign.sh
