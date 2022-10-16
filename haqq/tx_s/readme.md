@@ -1,12 +1,19 @@
 ```
 cd $HOME
 ```
+```
 mkdir temp_tx && cd temp_tx
 ```
+```
 mkdir tx
+```
+```
 mkdir utx
+```
+```
 nano gen_sign.sh
-
+```
+```
 #!/bin/bash
 ADR1=
 ADR2=
@@ -30,9 +37,11 @@ rm ~/temp_tx/utx/*
 break
 fi
 done
-
+```
+```
 nano broadcast.sh
-
+```
+```
 #!/bin/bash
 SF=$(ls -l ~/temp_tx/tx | grep "json" | wc | awk '{print $1}')
 NM=1
@@ -45,7 +54,13 @@ rm ~/temp_tx/tx/*
 break
 fi
 done
-
+```
+```
 chmod +x gen_sign.sh && chmod +x broadcast.sh
+```
+```
 ./gen_sign.sh
+```
+```
 ./broadcast.sh
+```
