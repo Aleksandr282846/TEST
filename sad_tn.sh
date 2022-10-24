@@ -13,8 +13,6 @@ read -p "Введите имя сети: " CHAIN
 sleep 0.2
 read -p "Введите имя токена: " TK
 sleep 0.2
-read -p "Введите используемый порт: " PR
-sleep 0.2
 read -p "Введите значение fees (при 0 оставьте поле пустым): " FS
 sleep 0.2
 read -p "Введите значение gas (пустое поле - auto): " GS
@@ -48,16 +46,16 @@ echo -e "\033[32mТеперь можно свернуть сессию screen. �
 echo -e "\033[32mЧтобы вернуться в активную сессию скрипта автоделегирования, введите в командной строке \033[31mscreen -x $SC\033[0m"
 for (( ;; )); do
 VB=$(curl -s localhost:${PR}/status | jq -r .result.sync_info.latest_block_height)
-CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} --node http://127.0.0.1:${PR} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
+CK=$(echo "($(${PR_N} query distribution commission ${ADR_V} -o json | jq -r  .commission[].amount) + 0.5)/1" | bc)
 sleep 0.2
-CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${KB} ${ADR_V} --node http://127.0.0.1:${PR} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
+CR=$(echo "($(${PR_N} query distribution rewards ${ADR_W} ${KB} ${ADR_V} -o json | jq -r  .rewards[].amount) + 0.5)/1" | bc)
 DS=$(bc <<< "${CK} + ${CR}")
 DD=$(bc <<< "(${CK} + ${CR}) / 1000000")
 echo -e "\033[32mПроверка суммы на блоке ${VB}-${HS}. Комиссия ${CK}u${TK} + реварды ${CR}u${TK} = ${DD}${TK}.\033[0m"
 if ((${DS} > ${DR})); then
 echo -e "\033[32mКлеймим награду за делегацию \033[31m(${ADR_V})\033[0m:\n"
 HS=$(echo "${HS} + 1" | bc)
-echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} ${FD} --node http://127.0.0.1:${PR} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-rewards ${ADR_V} --chain-id ${CHAIN} --from ${NAM_W} ${KB} --commission --gas ${KP} ${FD} --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
@@ -66,7 +64,7 @@ done
 if ((${HS} > 10)); then
 echo -e "\033[32mКлеймим все награды:\033[0m\n"
 KQ=$(bc <<< "${FS} * 5")
-echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} ${FD} --node http://127.0.0.1:${PR} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx distribution withdraw-all-rewards --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} ${FD} --node --yes
 HS=1
 for (( timer=${TM}; timer>0; timer-- ))
 do
@@ -74,13 +72,13 @@ printf "Пауза %02d \r" $timer
 sleep 1
 done
 fi
-BAL=$(${PR_N} q bank balances ${ADR_W} --node http://127.0.0.1:${PR} -o json | jq -r '.balances | .[].amount')
+BAL=$(${PR_N} q bank balances ${ADR_W} -o json | jq -r '.balances | .[].amount')
 echo -e "\033[32mПроверяем баланс. Баланс: ${BAL}u${TK}\033[0m\n"
 sleep 1
 BAL=$(echo "${BAL} - 99000" | bc)
 if ((${BAL} > 100000)); then
 echo -e "\033[32mДелегируем всю сумму:\033[0m\n"
-echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} ${FD} --node http://127.0.0.1:${PR} --yes
+echo -e "${PASS}\ny\n" | ${PR_N} tx staking delegate ${ADR_V} ${BAL}u${TK} --from ${NAM_W} ${KB} --chain-id ${CHAIN} --gas ${KP} ${FD} --node --yes
 for (( timer=${TM}; timer>0; timer-- ))
 do
 printf "Пауза %02d \r" $timer
