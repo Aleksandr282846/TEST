@@ -1,6 +1,6 @@
 #!/bin/bash
-TGID=1877445107
-TGAP=2048454991:AAGRYuZwkH5VviIgcTuedFAd0gKrsPiybcY
+TGID=
+TGAP=
 PS=1
 DELAY=3
 for (( ;; )); do
